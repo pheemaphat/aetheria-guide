@@ -8,7 +8,7 @@
 <style>
 :root{
   --bg:#eef1f0; --surface:#ffffff; --surface-2:#f4f6f5; --ink:#1c2227; --muted:#5a646c; --line:#d8dedc; --zebra:#f7f9f8;
-  --link:#1f5f8b; --rogue:#7a3b8f; --rogue-soft:#f4ebf7; --mage:#13708a; --mage-soft:#e3f1f4; --summoner:#56702a; --summoner-soft:#eef3e2;
+  --link:#1f5f8b; --rogue:#7a3b8f; --rogue-soft:#f4ebf7; --mage:#13708a; --mage-soft:#e3f1f4; --summoner:#56702a; --summoner-soft:#eef3e2; --scout:#a33b3b; --scout-soft:#f8eaea;
   --warn:#a8650f; --warn-bg:#fff4e2; --ok:#2e7a4c; --ok-bg:#e8f4ec; --info:#3c6694; --info-bg:#eaf0f8;
   --job:var(--ink); --job-soft:var(--surface);
   --font:"Sukhumvit Set","Noto Sans Thai","Noto Sans Thai UI","Leelawadee UI","Thonburi",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -17,14 +17,14 @@
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#111417; --surface:#181c20; --surface-2:#1f2429; --ink:#e4e8ea; --muted:#9aa4ab; --line:#2c3338; --zebra:#1c2125;
-    --link:#8ec1ea; --rogue:#c99be0; --rogue-soft:#2a2130; --mage:#6cc6dc; --mage-soft:#14272c; --summoner:#a9cf78; --summoner-soft:#1e2614;
+    --link:#8ec1ea; --rogue:#c99be0; --rogue-soft:#2a2130; --mage:#6cc6dc; --mage-soft:#14272c; --summoner:#a9cf78; --summoner-soft:#1e2614; --scout:#ec9494; --scout-soft:#2c1a1a;
     --warn:#e0a24a; --warn-bg:#2a2214; --ok:#6cc08c; --ok-bg:#16261c; --info:#8fb0de; --info-bg:#172131;
     color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#111417; --surface:#181c20; --surface-2:#1f2429; --ink:#e4e8ea; --muted:#9aa4ab; --line:#2c3338; --zebra:#1c2125;
-  --link:#8ec1ea; --rogue:#c99be0; --rogue-soft:#2a2130; --mage:#6cc6dc; --mage-soft:#14272c; --summoner:#a9cf78; --summoner-soft:#1e2614;
+  --link:#8ec1ea; --rogue:#c99be0; --rogue-soft:#2a2130; --mage:#6cc6dc; --mage-soft:#14272c; --summoner:#a9cf78; --summoner-soft:#1e2614; --scout:#ec9494; --scout-soft:#2c1a1a;
   --warn:#e0a24a; --warn-bg:#2a2214; --ok:#6cc08c; --ok-bg:#16261c; --info:#8fb0de; --info-bg:#172131;
   color-scheme:dark;
 }
@@ -48,7 +48,7 @@ small,.muted{color:var(--muted)}
 .layout{max-width:980px;margin:0 auto;padding:0 32px 40px}
 main{min-width:0}
 main>section{margin:0 0 5rem;scroll-margin-top:72px}
-body.j-r{--job:var(--rogue);--job-soft:var(--rogue-soft)} body.j-m{--job:var(--mage);--job-soft:var(--mage-soft)} body.j-s{--job:var(--summoner);--job-soft:var(--summoner-soft)}
+body.j-r{--job:var(--rogue);--job-soft:var(--rogue-soft)} body.j-m{--job:var(--mage);--job-soft:var(--mage-soft)} body.j-s{--job:var(--summoner);--job-soft:var(--summoner-soft)} body.j-c{--job:var(--scout);--job-soft:var(--scout-soft)}
 /* slim header + sticky step bar */
 .top{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;padding:16px 0 12px;border-bottom:3px solid var(--job)}
 .top .home{font-weight:700;color:var(--ink);text-decoration:none}
@@ -62,7 +62,7 @@ body.j-r{--job:var(--rogue);--job-soft:var(--rogue-soft)} body.j-m{--job:var(--m
 .steps a b{color:var(--job);margin-right:5px;font-size:.8rem}
 .steps a:hover{border-color:var(--job);color:var(--job)}
 /* index: job cards */
-.jobcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.jobcards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:18px 0}
 .jobcard{display:flex;flex-direction:column;gap:6px;padding:18px 18px 16px;border:1px solid var(--line);border-top:6px solid var(--job);border-radius:14px;background:var(--surface);color:var(--ink);text-decoration:none}
 .jobcard b{font-size:1.5rem;color:var(--job);line-height:1.2}
 .jobcard small{font-size:.85rem}
@@ -147,12 +147,14 @@ footer{margin:40px 0 20px;padding-top:16px;border-top:1px solid var(--line);colo
 @media (max-width:899px){
   body{font-size:16px}
   .layout{padding:0 16px 24px}
-  .grid2,.jobcards{grid-template-columns:minmax(0,1fr)}
+  .grid2{grid-template-columns:minmax(0,1fr)}
+  .jobcards{grid-template-columns:repeat(2,minmax(0,1fr))}
   main>section{margin-bottom:3.5rem}
   .top .lvform{margin:0}
   details.stage.here{padding-left:8px;border-left-width:3px}
 }
 @media (max-width:560px){
+  .jobcards{grid-template-columns:minmax(0,1fr)}
   .top{padding:10px 0 8px;gap:4px 12px}
   .top .jobs{font-size:.8rem}
   .top .lvform small{display:none}
@@ -168,7 +170,7 @@ footer{margin:40px 0 20px;padding-top:16px;border-top:1px solid var(--line);colo
 </head>
 <body class="j-r" data-job="r">
 <div class="layout">
-<header class="top"><a class="home" href="index.html">Binder Town Guide</a><h1 class="jobname">Rogue <small>ไกด์สาย AUTO · Lv 1 → 99 → ตัน</small></h1><nav class="jobs" aria-label="หน้าอื่น"><a href="index.html">หน้าแรก</a> · <a href="mage.html">Mage</a> · <a href="summoner.html">Summoner</a> · <a href="index.html#appendix">ภาคผนวกระบบ</a></nav><div id="lvform" class="lvform" hidden><label>เลเวลของคุณ <input id="lvin" type="number" min="1" max="99" value="47" inputmode="numeric"></label><small>ตัวเลขคำนวณตามเลเวลนี้ · จำไว้ใช้ร่วมทุกหน้า · หรือใส่ <span style="white-space:nowrap">?lv=NN</span> ท้ายลิงก์</small></div></header><nav class="steps" aria-label="ขั้นตอน"><a href="#start"><b>1</b>เริ่ม</a><a href="#farm"><b>2</b>Farm Build</a><a href="#boss"><b>3</b>Boss Build</a><a href="#full"><b>4</b>Full Build</a><a href="#route"><b>5</b>เส้นทางเลเวล</a><a href="#gear"><b>6</b>อุปกรณ์</a><a href="#daily"><b>7</b>รูทีนรายวัน</a><a href="#money"><b>8</b>หาเงิน</a><a href="#sources"><b>9</b>แหล่งข้อมูล</a></nav>
+<header class="top"><a class="home" href="index.html">Binder Town Guide</a><h1 class="jobname">Rogue <small>ไกด์สาย AUTO · Lv 1 → 99 → ตัน</small></h1><nav class="jobs" aria-label="หน้าอื่น"><a href="index.html">หน้าแรก</a> · <a href="mage.html">Mage</a> · <a href="summoner.html">Summoner</a> · <a href="scout.html">Scout</a> · <a href="index.html#appendix">ภาคผนวกระบบ</a></nav><div id="lvform" class="lvform" hidden><label>เลเวลของคุณ <input id="lvin" type="number" min="1" max="99" value="47" inputmode="numeric"></label><small>ตัวเลขคำนวณตามเลเวลนี้ · จำไว้ใช้ร่วมทุกหน้า · หรือใส่ <span style="white-space:nowrap">?lv=NN</span> ท้ายลิงก์</small></div></header><nav class="steps" aria-label="ขั้นตอน"><a href="#start"><b>1</b>เริ่ม</a><a href="#farm"><b>2</b>Farm Build</a><a href="#boss"><b>3</b>Boss Build</a><a href="#full"><b>4</b>Full Build</a><a href="#route"><b>5</b>เส้นทางเลเวล</a><a href="#gear"><b>6</b>อุปกรณ์</a><a href="#daily"><b>7</b>รูทีนรายวัน</a><a href="#money"><b>8</b>หาเงิน</a><a href="#sources"><b>9</b>แหล่งข้อมูล</a></nav>
 <main>
 <section id="start">
 <h2>เริ่มจากตรงนี้ถ้าคุณ Lv <span class="lvN">47</span></h2>
@@ -509,10 +511,10 @@ footer{margin:40px 0 20px;padding-top:16px;border-top:1px solid var(--line);colo
 <p class="muted">ไอเทมทุกชิ้นในขั้น <a href="#gear">อุปกรณ์ตามช่วง</a> ลิงก์ไปหน้าไอเทมของมันเอง (หัวข้อ “หาได้จาก” และ “Affix ที่สุ่มได้บนชิ้นนี้”) · โอกาสดรอปมาจากตาราง “ของดรอป” ในหน้ามอน · หน้านี้ลิงก์แมพ 42 หน้าใต้ /map/… และมอน 118 หน้าใต้ /mob/…</p>
 </section>
 
-<footer>Binder Town Guide · Rogue · ทุกหน้าเปิดออฟไลน์ได้ในไฟล์เดียว (ไอคอนจากวิกิจะไม่ขึ้นถ้าไม่มีเน็ต) · <a href="index.html">หน้าแรก</a> · <a href="mage.html">Mage</a> · <a href="summoner.html">Summoner</a> · <a href="index.html#appendix">ภาคผนวกระบบ</a></footer>
+<footer>Binder Town Guide · Rogue · ทุกหน้าเปิดออฟไลน์ได้ในไฟล์เดียว (ไอคอนจากวิกิจะไม่ขึ้นถ้าไม่มีเน็ต) · <a href="index.html">หน้าแรก</a> · <a href="mage.html">Mage</a> · <a href="summoner.html">Summoner</a> · <a href="scout.html">Scout</a> · <a href="index.html#appendix">ภาคผนวกระบบ</a></footer>
 </main>
 </div>
-<script type="application/json" id="lvd">{"lv":[[15000,1000,15,0],[48431,2549,19,3],[105768,4407,24,3],[188442,6498,29,3],[307370,8782,35,3],[752611,11233,67,3],[982072,13832,71,4],[1242300,16564,75,4],[1514682,19419,78,4],[1790960,22387,80,4],[2469717,25461,97,4],[3293025,28635,115,5],[4274868,31902,134,5],[5465145,35259,155,5],[6850077,38701,177,5],[8613696,42224,204,5],[10677225,45825,233,5],[13068264,49501,264,6],[15762000,53250,296,6],[18889508,57068,331,6],[22369751,60953,367,6],[26286120,64904,405,6],[30599592,68918,444,7],[35475084,72994,486,7],[40801241,77129,529,7],[45215588,81323,556,7],[49975216,85574,584,7],[55096440,89880,613,7],[60502080,94240,642,8],[66295488,98654,672,8],[72389538,103119,702,8],[78896455,107635,733,8],[85833000,112200,765,8],[93100758,116814,797,9],[100825080,121476,830,9],[111547540,126185,884,9],[122952660,130940,939,9],[135197040,135740,996,9],[148316120,140584,1055,9],[162202395,145473,1115,10],[177025508,150404,1177,10],[192667480,155377,1240,10],[209311560,160392,1305,10],[226994656,165448,1372,10],[245753904,170544,1441,11],[265628160,175680,1512,11],[286656760,180856,1585,11],[308876200,186070,1660,11],[332134992,191322,1736,11],[356654168,196612,1814,11],[382472466,201939,1894,12],[409628752,207302,1976,12],[437953418,212702,2059,12],[467687872,218138,2144,12],[498648070,223609,2230,12],[522382200,229115,2280,13],[546748480,234656,2330,13],[571987630,240230,2381,13],[597880448,245839,2432,13],[624424840,251480,2483,13],[651887925,257155,2535,13],[680026581,262863,2587,14],[790495686,268602,2943,14],[907629192,274374,3308,14],[1031891891,280177,3683,14],[1163210804,286012,4067,14],[1202245482,291878,4119,15],[1242015354,297774,4171,15],[1282529323,303701,4223,15],[1323478292,309658,4274,15],[1450388775,315645,4595,15],[1583215442,321661,4922,15],[1722427992,327707,5256,16],[2351160408,333782,7044,16],[3016828136,339886,8876,16],[3720385536,346018,10752,16],[4463151794,352178,12673,16],[5245417779,358367,14637,17],[5214266066,364583,14302,17],[5174890785,370827,13955,17],[5126647310,377098,13595,17],[5069658531,383397,13223,17],[5673572876,389722,14558,17],[6305514000,396075,15920,18],[6966058977,402453,17309,18],[7655866050,408858,18725,18],[8375568720,415290,20168,18],[9125761586,421747,21638,18],[9367081146,428229,21874,19],[9611622442,434738,22109,19],[9859781568,441272,22344,19],[10111553570,447830,22579,19],[10367000996,454414,22814,19],[10626580150,461023,23050,19],[10889369960,467656,23285,20],[11155865280,474314,23520,20],[11426059980,480996,23755,20],[11699994970,487703,23990,20],[0,494433,0,20]],"job":[8000,32000,72000,128000,200000,288000,392000,512000,648000,800000,968000,1152000,1352000,1568000,1800000,2048000,2312000,2592000,2888000,3200000,3528000,3872000,4232000,4608000,5000000,5408000,5832000,6272000,6728000,7200000,7688000,8192000,8712000,9248000,9996000,11197000,12923000,15249000,18252000,22016000,26627000,32175000,38755000,46464000,55404000,65681000,77403000,90685000,105644000],"ms":{"rf":[[20,[["STR",30],["DEX",10],["AGI",10],["VIT",3]]],[49,[["STR",50],["DEX",40],["AGI",20],["VIT",27]]],[70,[["STR",70],["DEX",50],["AGI",40],["VIT",35]]],[99,[["STR",90],["DEX",80],["AGI",50],["VIT",42],["LUK",30]]]],"rb":[[20,[["AGI",30],["STR",10],["LUK",10],["VIT",3]]],[49,[["AGI",50],["STR",40],["LUK",20],["VIT",27]]],[70,[["AGI",70],["STR",50],["LUK",40],["VIT",35]]],[99,[["AGI",90],["STR",80],["LUK",50],["VIT",42],["DEX",30]]]],"mf":[[20,[["INT",31],["DEX",10],["VIT",9]]],[49,[["INT",50],["DEX",45],["VIT",30]]],[70,[["INT",70],["DEX",60],["VIT",45]]],[99,[["INT",99],["DEX",90],["VIT",48]]]],"sf":[[20,[["INT",31],["VIT",10],["DEX",9]]],[49,[["INT",50],["VIT",45],["DEX",30]]],[70,[["INT",70],["VIT",60],["DEX",45]]],[99,[["INT",99],["VIT",80],["DEX",63]]]],"sb":[[20,[["INT",31],["LUK",10],["VIT",9]]],[49,[["INT",60],["LUK",30],["VIT",31]]],[70,[["INT",80],["LUK",40],["VIT",50]]],[99,[["INT",99],["LUK",73],["VIT",70]]]],"mb":[[20,[["INT",31],["VIT",10],["DEX",9]]],[49,[["INT",60],["VIT",31],["DEX",30]]],[70,[["INT",80],["VIT",40],["DEX",50]]],[99,[["INT",99],["DEX",80],["VIT",63]]]]},"st":[["s1",1,9,"Southvale Field → Whispering Woods"],["s2",9,16,"Bracken Sink / Old Quarry"],["s3",16,24,"Ancient Ruins / Verdigris Rise → Sunfield Plains"],["s4",24,30,"Gloomroot Forest / Pitchwood"],["s5",30,36,"Yellowlick Flats / Ember Hollow"],["s6",36,45,"Mistmire Swamp → Peatcut Bog → Duskgate Pass"],["s7",45,53,"Frostpeak Slopes → Sledrun Gully"],["s8",53,60,"Frozen Mere / Brinecrust Shoals"],["s9",60,70,"Howling Steppes → Cloudspire Ruins / Kitewind Terraces"],["s10",70,80,"Glasswrack / Shattered Vale"],["s11",80,90,"Marrowdeep / Umbral Depths"],["s12",90,99,"Rustbell Barracks / Throne of the Warden"]],"gt":[["gear-t1",1,7],["gear-t2",8,14],["gear-t3",15,21],["gear-t4",22,29],["gear-t5",30,39],["gear-t6",40,49],["gear-t7",50,59],["gear-t8",60,71],["gear-t9",72,84],["gear-t10",85,99]],"money":{"r":[[20,10200],[49,377407],[70,459097],[85,8673919],[99,13681579]],"m":[[20,10200],[49,385164],[70,470728],[85,8673919],[99,14003581]],"s":[[20,10200],[49,385164],[70,470728],[85,8673919],[99,14611905]]}}</script>
+<script type="application/json" id="lvd">{"lv":[[15000,1000,15,0],[48431,2549,19,3],[105768,4407,24,3],[188442,6498,29,3],[307370,8782,35,3],[752611,11233,67,3],[982072,13832,71,4],[1242300,16564,75,4],[1514682,19419,78,4],[1790960,22387,80,4],[2469717,25461,97,4],[3293025,28635,115,5],[4274868,31902,134,5],[5465145,35259,155,5],[6850077,38701,177,5],[8613696,42224,204,5],[10677225,45825,233,5],[13068264,49501,264,6],[15762000,53250,296,6],[18889508,57068,331,6],[22369751,60953,367,6],[26286120,64904,405,6],[30599592,68918,444,7],[35475084,72994,486,7],[40801241,77129,529,7],[45215588,81323,556,7],[49975216,85574,584,7],[55096440,89880,613,7],[60502080,94240,642,8],[66295488,98654,672,8],[72389538,103119,702,8],[78896455,107635,733,8],[85833000,112200,765,8],[93100758,116814,797,9],[100825080,121476,830,9],[111547540,126185,884,9],[122952660,130940,939,9],[135197040,135740,996,9],[148316120,140584,1055,9],[162202395,145473,1115,10],[177025508,150404,1177,10],[192667480,155377,1240,10],[209311560,160392,1305,10],[226994656,165448,1372,10],[245753904,170544,1441,11],[265628160,175680,1512,11],[286656760,180856,1585,11],[308876200,186070,1660,11],[332134992,191322,1736,11],[356654168,196612,1814,11],[382472466,201939,1894,12],[409628752,207302,1976,12],[437953418,212702,2059,12],[467687872,218138,2144,12],[498648070,223609,2230,12],[522382200,229115,2280,13],[546748480,234656,2330,13],[571987630,240230,2381,13],[597880448,245839,2432,13],[624424840,251480,2483,13],[651887925,257155,2535,13],[680026581,262863,2587,14],[790495686,268602,2943,14],[907629192,274374,3308,14],[1031891891,280177,3683,14],[1163210804,286012,4067,14],[1202245482,291878,4119,15],[1242015354,297774,4171,15],[1282529323,303701,4223,15],[1323478292,309658,4274,15],[1450388775,315645,4595,15],[1583215442,321661,4922,15],[1722427992,327707,5256,16],[2351160408,333782,7044,16],[3016828136,339886,8876,16],[3720385536,346018,10752,16],[4463151794,352178,12673,16],[5245417779,358367,14637,17],[5214266066,364583,14302,17],[5174890785,370827,13955,17],[5126647310,377098,13595,17],[5069658531,383397,13223,17],[5673572876,389722,14558,17],[6305514000,396075,15920,18],[6966058977,402453,17309,18],[7655866050,408858,18725,18],[8375568720,415290,20168,18],[9125761586,421747,21638,18],[9367081146,428229,21874,19],[9611622442,434738,22109,19],[9859781568,441272,22344,19],[10111553570,447830,22579,19],[10367000996,454414,22814,19],[10626580150,461023,23050,19],[10889369960,467656,23285,20],[11155865280,474314,23520,20],[11426059980,480996,23755,20],[11699994970,487703,23990,20],[0,494433,0,20]],"job":[8000,32000,72000,128000,200000,288000,392000,512000,648000,800000,968000,1152000,1352000,1568000,1800000,2048000,2312000,2592000,2888000,3200000,3528000,3872000,4232000,4608000,5000000,5408000,5832000,6272000,6728000,7200000,7688000,8192000,8712000,9248000,9996000,11197000,12923000,15249000,18252000,22016000,26627000,32175000,38755000,46464000,55404000,65681000,77403000,90685000,105644000],"ms":{"rf":[[20,[["STR",30],["DEX",10],["AGI",10],["VIT",3]]],[49,[["STR",50],["DEX",40],["AGI",20],["VIT",27]]],[70,[["STR",70],["DEX",50],["AGI",40],["VIT",35]]],[99,[["STR",90],["DEX",80],["AGI",50],["VIT",42],["LUK",30]]]],"rb":[[20,[["AGI",30],["STR",10],["LUK",10],["VIT",3]]],[49,[["AGI",50],["STR",40],["LUK",20],["VIT",27]]],[70,[["AGI",70],["STR",50],["LUK",40],["VIT",35]]],[99,[["AGI",90],["STR",80],["LUK",50],["VIT",42],["DEX",30]]]],"mf":[[20,[["INT",31],["DEX",10],["VIT",9]]],[49,[["INT",50],["DEX",45],["VIT",30]]],[70,[["INT",70],["DEX",60],["VIT",45]]],[99,[["INT",99],["DEX",90],["VIT",48]]]],"sf":[[20,[["INT",31],["VIT",10],["DEX",9]]],[49,[["INT",50],["VIT",45],["DEX",30]]],[70,[["INT",70],["VIT",60],["DEX",45]]],[99,[["INT",99],["VIT",80],["DEX",63]]]],"sb":[[20,[["INT",31],["LUK",10],["VIT",9]]],[49,[["INT",60],["LUK",30],["VIT",31]]],[70,[["INT",80],["LUK",40],["VIT",50]]],[99,[["INT",99],["LUK",73],["VIT",70]]]],"cf":[[20,[["DEX",31],["VIT",10],["STR",9]]],[49,[["DEX",60],["VIT",30],["STR",30]]],[70,[["DEX",80],["VIT",45],["STR",40],["AGI",20]]],[99,[["DEX",99],["VIT",61],["STR",60],["AGI",40],["LUK",30]]]],"cb":[[20,[["DEX",31],["LUK",10],["VIT",9]]],[49,[["DEX",60],["LUK",30],["VIT",31]]],[70,[["DEX",80],["LUK",40],["VIT",50]]],[99,[["DEX",99],["LUK",60],["VIT",70],["AGI",40]]]],"mb":[[20,[["INT",31],["VIT",10],["DEX",9]]],[49,[["INT",60],["VIT",31],["DEX",30]]],[70,[["INT",80],["VIT",40],["DEX",50]]],[99,[["INT",99],["DEX",80],["VIT",63]]]]},"st":[["s1",1,9,"Southvale Field → Whispering Woods"],["s2",9,16,"Bracken Sink / Old Quarry"],["s3",16,24,"Ancient Ruins / Verdigris Rise → Sunfield Plains"],["s4",24,30,"Gloomroot Forest / Pitchwood"],["s5",30,36,"Yellowlick Flats / Ember Hollow"],["s6",36,45,"Mistmire Swamp → Peatcut Bog → Duskgate Pass"],["s7",45,53,"Frostpeak Slopes → Sledrun Gully"],["s8",53,60,"Frozen Mere / Brinecrust Shoals"],["s9",60,70,"Howling Steppes → Cloudspire Ruins / Kitewind Terraces"],["s10",70,80,"Glasswrack / Shattered Vale"],["s11",80,90,"Marrowdeep / Umbral Depths"],["s12",90,99,"Rustbell Barracks / Throne of the Warden"]],"gt":[["gear-t1",1,7],["gear-t2",8,14],["gear-t3",15,21],["gear-t4",22,29],["gear-t5",30,39],["gear-t6",40,49],["gear-t7",50,59],["gear-t8",60,71],["gear-t9",72,84],["gear-t10",85,99]],"money":{"r":[[20,10200],[49,377407],[70,459097],[85,8673919],[99,13681579]],"m":[[20,10200],[49,385164],[70,470728],[85,8673919],[99,14003581]],"s":[[20,10200],[49,385164],[70,470728],[85,8673919],[99,14611905]],"c":[[20,10200],[49,362541],[70,439985],[85,8673919],[99,12787494]]}}</script>
 <script>
 function V(D,n,j){var L=D.lv,c=[0],i;for(i=0;i<99;i++)c.push(c[i]+L[i][3]);
 function f(x){return String(x).replace(/\B(?=(\d{3})+(?!\d))/g,',')}
@@ -520,7 +522,7 @@ function co(v){var s=0;for(var k=0;k<v;k++)s+=1+(k/10|0);return s}
 function al(a){return a.map(function(p){return p[0]+' '+p[1]}).join(' · ')}
 function tc(a){return a.reduce(function(s,p){return s+co(p[1])},0)}
 function ms(k){var m=D.ms[k];for(var i=0;i<m.length;i++)if(m[i][0]>=n)return m[i];return m[m.length-1]}
-var pre=n<50,a=c[n],k=L[n-1][2],t={},h={},J={r:'Rogue',m:'Mage',s:'Summoner'}[j];
+var pre=n<50,a=c[n],k=L[n-1][2],t={},h={},J={r:'Rogue',m:'Mage',s:'Summoner',c:'Scout'}[j];
 t.tl1=pre?[50-n,'เลเวลที่เหลือก่อนเส้นตาย Base Lv 50']:['10,000 G','หลัง 50: รี 10,000 G ต่อครั้ง (สเตตัส · สกิล · Evolution)'];
 t.tl4=n<99?[f(k),'ตัวที่ต้องฆ่าเพื่อผ่าน Lv '+n]:['ตัน','Lv 99 ไม่มี EXP ให้เก็บแล้ว'];
 t.tl5=[f(a),'แต้มสเตตัสที่มีตอน Lv '+n];
@@ -528,16 +530,16 @@ var m=ms(j+'f'),mc=tc(m[1]),d=a-mc;
 t.tl6=[m[1][0][0]+' '+m[1][0][1],J+' Farm เป้า Lv '+m[0]+' · '+al(m[1].slice(1))];
 t.tl7=[d>=0?'เหลือ '+f(d):'ขาด '+f(-d),'แต้มตอนนี้เทียบเป้า Lv '+m[0]+' (ใช้ '+f(mc)+')'];
 function tile(k,x){var q=ms(k);return [q[1][0][0]+' '+q[1][0][1],'เป้า Lv '+q[0]+' · '+al(q[1].slice(1))]}
-t.trs=tile('rf');t.tms=tile('mf');t.trbs=tile('rb');t.tmbs=tile('mb');t.tss=tile('sf');t.tsbs=tile('sb');
+t.trs=tile('rf');t.tms=tile('mf');t.trbs=tile('rb');t.tmbs=tile('mb');t.tss=tile('sf');t.tsbs=tile('sb');t.tcs=tile('cf');t.tcbs=tile('cb');
 t.tnlv=['Job 1','Job Lv ของอาชีพใหม่เริ่มใหม่ · Base Lv '+n+' คงเดิม'];t.tnpts=[f(a),'แต้มสเตตัสลงใหม่จากศูนย์ตอน Lv '+n];
 function rs(k,l){var q=ms(k),qc=tc(q[1]);return '<b>รีสเตตัส</b> '+(pre?'(ฟรี)':'(10,000 G)')+' แล้วลงใหม่ตาม '+l+' เป้า Lv '+q[0]+': <b>'+al(q[1])+'</b> (ใช้ '+f(qc)+' · ตอนนี้มี '+f(a)+' แต้ม · '+(a>=qc?'เหลือ '+f(a-qc):'ลงตามลำดับในตาราง ยังขาด '+f(qc-a))+')'}
-h.gr=rs(j+'f','Farm Build');h.mgr=rs('mf','Mage Farm Build');h.sgr=rs('sf','Summoner Farm Build');
+h.gr=rs(j+'f','Farm Build');h.mgr=rs('mf','Mage Farm Build');h.sgr=rs('sf','Summoner Farm Build');h.cgr=rs('cf','Scout Farm Build');
 h.left50=pre?String(50-n):'';h.gh=J+(pre?': ทำให้เสร็จก่อนแตะ Lv 50':': ตั้งให้ครบ (รีครั้งละ 10,000 G ต่ออย่าง)');
 var s=D.st[D.st.length-1];for(i=0;i<D.st.length;i++)if(D.st[i][1]<=n&&n<D.st[i][2]){s=D.st[i];break}
 h.where='<a href="#'+s[0]+'">'+s[3]+'</a> (การ์ดด่าน Lv '+s[1]+'–'+s[2]+')'+(n<99?' · ต้องฆ่ามอนเลเวลเท่าตัว <b>'+f(k)+' ตัว</b> เพื่อผ่าน Lv '+n:' · Lv 99 แล้ว ไปที่ <a href="#full">Full Build</a>');
 var K=0,E,jl=1,cj=0;for(i=n;i<50;i++)K+=L[i-1][2];E=K*8748;while(jl<50&&cj+D.job[jl-1]<=E){cj+=D.job[jl-1];jl++}
 function dl(x,e){return '<b>เส้นตาย Lv 50 ยังใช้กับ '+x+':</b> '+(n<45?'ก่อน Base Lv 50 รีสเตตัส รีสกิล และเปลี่ยน Evolution ฟรี — ลอง Build ได้ไม่เสียเงิน':'ผ่าน Lv '+(n<49?n+'–49':'49')+' ต้องฆ่า '+f(K)+' ตัว ≈ Job EXP '+(E/1e6).toFixed(1)+' ล้าน (ถ้าได้ 8,748 ต่อตัว) ≈ <b>Job '+jl+'</b> · Evolution ที่ปลดก่อน Lv 50 ('+e+') เปลี่ยนฟรีได้ถึง Lv 49')}
-h.mgd=dl('Mage','Spirit Rune Job 9 · Frostbind Job 11 · Mana Veil Job 14 · Focus Mind Job 17');h.sgd=dl('Summoner','Raise Dead Job 9 · Reap Job 11 · Soul Surge Job 24');
+h.mgd=dl('Mage','Spirit Rune Job 9 · Frostbind Job 11 · Mana Veil Job 14 · Focus Mind Job 17');h.sgd=dl('Summoner','Raise Dead Job 9 · Reap Job 11 · Soul Surge Job 24');h.cgd=dl('Scout','Anchor Arrow Job 9 · Arrow Rain Job 14 · Blast Arrow Job 27');
 if(D.money){var mt=D.money[j]||D.money.r,q=mt[mt.length-1];for(i=0;i<mt.length;i++)if(mt[i][0]>=n){q=mt[i];break}
 t.tgold=[f(q[1])+' G','เป้าเงินถือไว้ถึง Lv '+q[0]+' (ดูขั้นหาเงิน)']}
 var g=[];D.gt.forEach(function(b){if(b[1]<=n&&n<=b[2])g.push(b[0])});
