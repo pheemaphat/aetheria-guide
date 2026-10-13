@@ -1,0 +1,7 @@
+CLAUDE.md
+AGENTS.md
+CONTEXT.md
+.claude/
+.scratch/
+docs/agents/
+docs/adr/
