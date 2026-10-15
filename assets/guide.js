@@ -1,11 +1,9 @@
-/* Shared guide runtime: Level memory, Job page tabs, Farm/Boss toggle, Hub "continue" buttons.
+/* Shared guide runtime: Level memory, Job page tabs, Farm/Boss toggle.
    No framework, no build step. Each page keeps its own level math (V) inline and hands it to Guide.level. */
 (function () {
   'use strict';
   var d = document;
   d.documentElement.classList.add('js');
-  // Older single-file pages stored the Binder Town level under this key; read it once, keep it in sync.
-  var LEGACY = { bt: 'btg-lv' };
 
   function $(i) { return d.getElementById(i); }
   function each(s, fn, root) { Array.prototype.forEach.call((root || d).querySelectorAll(s), fn); }
@@ -13,8 +11,8 @@
   function set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
   function cl(x) { x = parseInt(x, 10); return x >= 1 && x <= 99 ? x : null; }
   function qlv() { try { return cl(new URLSearchParams(location.search).get('lv')); } catch (e) { return null; } }
-  function storedLv(g) { return cl(get(g + '-lv')) || cl(get(LEGACY[g])); }
-  function saveLv(g, n) { set(g + '-lv', n); if (LEGACY[g]) set(LEGACY[g], n); }
+  function storedLv(g) { return cl(get(g + '-lv')); }
+  function saveLv(g, n) { set(g + '-lv', n); }
 
   // A wiki icon that fails to load leaves its lettered placeholder visible.
   d.addEventListener('error', function (e) {
@@ -129,20 +127,6 @@
       if (a && a.getAttribute('href') === location.hash) setTimeout(function () { go(true); }, 0);
     });
     go(!!location.hash);
-  };
-
-  // Hub: per game "continue" button from <game>-job / <game>-lv.
-  G.hub = function () {
-    each('[data-resume]', function (r) {
-      var g = r.getAttribute('data-resume'), j = get(g + '-job'), n = storedLv(g);
-      var a = j && d.querySelector('.g-list a[data-game="' + g + '"][data-job="' + j + '"]');
-      if (!a) return;
-      r.href = a.getAttribute('href') + (n ? '?lv=' + n : '');
-      r.querySelector('.r-name').textContent = a.getAttribute('data-name') + (n ? ' Lv ' + n : '');
-      r.querySelector('.r-cap').textContent = 'เล่นต่อ';
-      var ic = a.querySelector('.sk, .ico');
-      if (ic) r.querySelector('.sk, .ico').innerHTML = ic.innerHTML;
-    });
   };
 
   // Game page: remember the chosen job; mark the one being played.
