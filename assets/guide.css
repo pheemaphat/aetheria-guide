@@ -439,3 +439,17 @@ details.acc.mini>.acc-body{display:flex;flex-direction:column;gap:8px}
 }
 @media (max-width:759px){[id]{scroll-margin-top:60px}}
 .pot kbd{flex:none;white-space:nowrap;width:auto}
+/* ---------- "← กลับ" pill after a "ดูเต็ม" jump; Game data page contents ---------- */
+.backpill{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:8;display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:22px;background:var(--acc);color:var(--on-acc);font:600 .95rem/1 var(--f-hud);text-decoration:none;box-shadow:0 4px 14px var(--shadow)}
+.backpill:hover{text-decoration:none;filter:brightness(1.06)}
+a.more{white-space:nowrap}
+.toc{display:flex;flex-wrap:wrap;gap:6px;padding:10px 16px;border-bottom:1px solid var(--line)}
+.toc a{display:inline-flex;align-items:center;min-height:40px;padding:0 10px;background:var(--surface);border:1px solid var(--line);font:600 .82rem/1.2 var(--f-hud);color:var(--ink);text-decoration:none}
+.panel>h2.sec small{font:400 .8rem/1.3 var(--f-body)}
+@media (max-width:759px){body:has(.tabs) .backpill{bottom:calc(72px + env(safe-area-inset-bottom))}
+}
+@media (min-width:760px){
+  .toc{flex-direction:column;flex-wrap:nowrap;padding:0;border:0;gap:2px}
+  .toc a{background:none;border:0;border-left:2px solid transparent;padding:0 12px;font-size:.92rem}
+  .toc a:hover{background:var(--acc-soft);border-left-color:var(--acc)}
+}

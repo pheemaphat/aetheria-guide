@@ -5,3 +5,4 @@ CONTEXT.md
 .scratch/
 docs/agents/
 docs/adr/
+.playwright-mcp/

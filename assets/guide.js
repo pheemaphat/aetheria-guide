@@ -129,6 +129,56 @@
     go(!!location.hash);
   };
 
+  // "ดูเต็ม" links (a.more) remember the spot the reader left (page, Tab hash, scroll) in sessionStorage;
+  // a floating "← กลับ" pill returns there, across pages too, then disappears.
+  var BK = 'guide-back', pill;
+  function sget(k) { try { return JSON.parse(sessionStorage.getItem(k)); } catch (e) { return null; } }
+  function sset(k, v) { try { if (v) sessionStorage.setItem(k, JSON.stringify(v)); else sessionStorage.removeItem(k); } catch (e) {} }
+  function here() { return location.pathname + location.search + location.hash; }
+  function showBack() {
+    var r = sget(BK), on = !!r && r.u !== here();
+    if (on && !pill) {
+      pill = d.createElement('a');
+      pill.className = 'backpill';
+      pill.textContent = '← กลับ';
+      pill.addEventListener('click', goBack);
+      d.body.appendChild(pill);
+    }
+    if (pill) { pill.hidden = !on; if (r) pill.href = r.u; }
+  }
+  function goBack(ev) {
+    var r = sget(BK);
+    if (!r) return;
+    ev.preventDefault();
+    sset(BK, null);
+    var u = r.u.split('#'), h = u[1] ? '#' + u[1] : '';
+    if (u[0] !== location.pathname + location.search) { sset(BK + '-y', r); location.href = r.u; return; }
+    function to() { requestAnimationFrame(function () { window.scrollTo(0, r.y); }); }
+    if (location.hash !== h) {
+      addEventListener('hashchange', function f() { removeEventListener('hashchange', f); to(); });
+      location.hash = h;
+    } else to();
+    showBack();
+  }
+  d.addEventListener('click', function (ev) {
+    var a = ev.target.closest && ev.target.closest('a.more');
+    if (a) {
+      var o = Array.prototype.map.call(d.querySelectorAll('details[open][id]'), function (x) { return x.id; });
+      sset(BK, { u: here(), y: Math.round(window.scrollY), o: o });
+      setTimeout(showBack, 0);
+    }
+  });
+  addEventListener('hashchange', showBack);
+  addEventListener('pageshow', function () {
+    var r = sget(BK + '-y');
+    if (r && r.u === here()) {
+      sset(BK + '-y', null);
+      (r.o || []).forEach(function (id) { var x = $(id); if (x) x.open = true; }); // a reload closes what the reader had opened
+      requestAnimationFrame(function () { window.scrollTo(0, r.y); });
+    }
+    showBack();
+  });
+
   // Game page: remember the chosen job; mark the one being played.
   G.jobCards = function (game) {
     var cur = get(game + '-job'), n = storedLv(game);
